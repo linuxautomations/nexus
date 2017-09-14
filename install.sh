@@ -29,6 +29,7 @@ fi
 yum install html2text -y &>/dev/null
 URL=$(curl -s https://help.sonatype.com/display/NXRM3/Download | html2text | grep unix.tar.gz | sed -e 's/>//g' -e 's/<//g' | grep ^http)
 NEXUSFILE=$(echo $URL | awk -F '/' '{print $NF}')
+NEXUSDIR=$(echo $NEXUSFILE|awk -F . '{print $1}')
 NEXUSFILE="/opt/$NEXUSFILE"
 wget $URL -O $NEXUSFILE &>/dev/null
 if [ $? -eq 0  ]; then 
@@ -37,3 +38,23 @@ else
 	error "NEXUS Downloading Failure"
 	exit 1
 fi
+
+## Adding Nexus User
+id nexus &>/dev/null
+if [ $? -ne  0 ]; then 
+	useradd nexus
+	if [ $? -eq 0 ]; then 
+		success "Added NEXUS User Successfully"
+	else
+		error "Adding NEXUS User Failure"
+		exit 1
+	fi
+fi
+
+## Extracting Nexus
+su nexus &>/dev/null <<EOF
+cd /home/nexus
+tar xf $NEXUS
+EOF
+
+## Setting Nexus starup
