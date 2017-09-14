@@ -53,7 +53,7 @@ fi
 
 ## Extracting Nexus
 if [ ! -f "/home/nexus/$NEXUSDIR" ]; then 
-su nexus &>/dev/null <<EOF
+su nexus <<EOF
 cd /home/nexus
 echo $NEXUS
 tar xf $NEXUS
