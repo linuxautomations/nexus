@@ -24,3 +24,16 @@ else
 	error "JAVA Installation Failure!"
 	exit 1
 fi
+
+## Downloading Nexus
+yum install html2text -y &>/dev/null
+URL=$(curl -s https://help.sonatype.com/display/NXRM3/Download | html2text | grep unix.tar.gz | sed -e 's/>//g' -e 's/<//g' | grep ^http)
+NEXUSFILE=$(echo $URL | awk -F '/' '{print $NF}')
+NEXUSFILE="/opt/$NEXUSFILE"
+wget $URL -O $NEXUSFILE &>/dev/null
+if [ $? -eq 0  ]; then 
+	success "NEXUS Downloaded Successfully"
+else
+	error "NEXUS Downloading Failure"
+	exit 1
+fi
