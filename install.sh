@@ -29,7 +29,7 @@ fi
 yum install html2text -y &>/dev/null
 URL=$(curl -s https://help.sonatype.com/display/NXRM3/Download | html2text | grep unix.tar.gz | sed -e 's/>//g' -e 's/<//g' | grep ^http)
 NEXUSFILE=$(echo $URL | awk -F '/' '{print $NF}')
-NEXUSDIR=$(echo $NEXUSFILE|awk -F . '{print $1}')
+NEXUSDIR=$(echo $NEXUSFILE|sed -e 's/-unix.tar.gz//')
 NEXUSFILE="/opt/$NEXUSFILE"
 wget $URL -O $NEXUSFILE &>/dev/null
 if [ $? -eq 0  ]; then 
@@ -60,3 +60,16 @@ EOF
 fi
 success "Extracted NEXUS Successfully"
 ## Setting Nexus starup
+unlink /etc/init.d/nexus &>/dev/null
+ln -s /home/nexus/$NEXUSDIR/bin/nexus /etc/init.d/nexus 
+echo "run_as_user=nexus" >/home/nexus/$NEXUSDIR/bin/nexus.rc
+success "Updating System Configuration"
+systemctl enable nexus &>/dev/null
+systemctl start nexus
+if [ $? -eq 0 ]; then 
+	success "Starting Nexus Service"
+else
+	error "Starting Nexus Failed"
+	exit 1
+fi
+
