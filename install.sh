@@ -55,8 +55,7 @@ fi
 if [ ! -f "/home/nexus/$NEXUSDIR" ]; then 
 su nexus <<EOF
 cd /home/nexus
-echo $NEXUS
-tar xf $NEXUS
+tar xf $NEXUSFILE
 EOF
 fi
 success "Extracted NEXUS Successfully"
