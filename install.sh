@@ -9,3 +9,7 @@ CheckRoot
 
 ## Checking SELINUX Enabled or not.
 CheckSELinux
+
+## Checking Firewall on the Server.
+CheckFirewall
+
