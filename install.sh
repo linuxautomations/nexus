@@ -17,4 +17,10 @@ CheckFirewall
 DownloadJava 8
 
 ## Installing Java
-yum localinstall $JAVAFILE -y 
+yum localinstall $JAVAFILE -y &>/dev/null
+if [ $? -eq 0 ]; then 
+	success "JAVA Installed Successfully"
+else
+	error "JAVA Installation Failure!"
+	exit 1
+fi
