@@ -13,3 +13,8 @@ CheckSELinux
 ## Checking Firewall on the Server.
 CheckFirewall
 
+## Downloading Java
+DownloadJava 8
+
+## Installing Java
+yum localinstall $JAVAFILE -y 
