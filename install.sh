@@ -56,5 +56,5 @@ su nexus &>/dev/null <<EOF
 cd /home/nexus
 tar xf $NEXUS
 EOF
-
+success "Extracted NEXUS Successfully"
 ## Setting Nexus starup
