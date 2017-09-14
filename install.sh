@@ -52,9 +52,11 @@ if [ $? -ne  0 ]; then
 fi
 
 ## Extracting Nexus
+if [ ! -f "/home/nexus/$NEXUSDIR" ]; then 
 su nexus &>/dev/null <<EOF
 cd /home/nexus
 tar xf $NEXUS
 EOF
+fi
 success "Extracted NEXUS Successfully"
 ## Setting Nexus starup
