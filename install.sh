@@ -27,7 +27,7 @@ else
 fi
 
 ## Downloading Nexus
-yum install https://kojipkgs.fedoraproject.org//packages/html2text/1.3.2a/14.el7/x86_64/html2text-1.3.2a-14.el7.x86_64.rpm -y &>/dev/null
+yum install https://kojipkgs.fedoraproject.org/packages/python-html2text/2016.9.19/1.el7/noarch/python2-html2text-2016.9.19-1.el7.noarch.rpm -y &>/dev/null
 URL=$(curl -s https://help.sonatype.com/display/NXRM3/Download | html2text | grep unix.tar.gz | sed -e 's/>//g' -e 's/<//g' | grep ^http)
 NEXUSFILE=$(echo $URL | awk -F '/' '{print $NF}')
 NEXUSDIR=$(echo $NEXUSFILE|sed -e 's/-unix.tar.gz//')
