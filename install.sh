@@ -55,6 +55,7 @@ fi
 if [ ! -f "/home/nexus/$NEXUSDIR" ]; then 
 su nexus &>/dev/null <<EOF
 cd /home/nexus
+echo $NEXUS
 tar xf $NEXUS
 EOF
 fi
