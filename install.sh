@@ -7,3 +7,5 @@ source /root/scripts/common-functions.sh
 ## Checking Root User or not.
 CheckRoot
 
+## Checking SELINUX Enabled or not.
+CheckSELinux
