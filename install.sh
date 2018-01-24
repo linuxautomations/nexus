@@ -14,16 +14,21 @@ CheckSELinux
 ## Checking Firewall on the Server.
 CheckFirewall
 
-## Downloading Java
-DownloadJava 8
 
-## Installing Java
-yum localinstall $JAVAFILE -y &>/dev/null
-if [ $? -eq 0 ]; then 
-	success "JAVA Installed Successfully"
+which java &>/dev/null
+if [ $? -ne 0 ]; then 
+	## Downloading Java
+	DownloadJava 8
+	## Installing Java
+	yum install /opt/jdk* -y &>/dev/null
+	if [ $? -eq 0 ]; then 
+		success "JAVA Installed Successfully"
+	else
+		error "JAVA Installation Failure!"
+		exit 1
+	fi
 else
-	error "JAVA Installation Failure!"
-	exit 1
+	success "Java already Installed"
 fi
 
 ## Downloading Nexus
