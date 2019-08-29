@@ -21,7 +21,7 @@ if [ $? -ne 0 ]; then
 	## DownloadJava 8
 	## Installing Java
 	## yum install /opt/jdk* -y &>/dev/null
-	yum install java -y &>/dev/null
+	yum install java wget -y &>/dev/null
 	if [ $? -eq 0 ]; then 
 		success "JAVA Installed Successfully"
 	else
